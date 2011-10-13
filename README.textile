@@ -8,13 +8,21 @@ For the serivce and daemon functionality
 
  gem install win32-service win32-daemon
 
-For the example sinatra app
-
- gem install rack sinatra
-
 h2. To install the service
 
 This will install the windows service.  Open up register_ruby_service_example.rb to change the service name
 
  ruby register_ruby_service_example.rb
 
+To uninstall it run the script with any argument at all.  eg...
+
+ ruby register_ruby_service_example.rb delete
+
+
+Make sure you place the script you'd like to have run into
+
+  c:/temp/
+
+It will output to
+
+  c:/test.log
