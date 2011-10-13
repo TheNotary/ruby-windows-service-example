@@ -1,33 +1,29 @@
-# This runs a simple sinatra app as a service
+# http://stackoverflow.com/questions/163497/running-a-ruby-program-as-a-windows-service
+# Use the register
+#
+# $  gem install win32-service
+
 
 LOG_FILE = 'C:\\test.log'
 
-require "rubygems"
-require 'sinatra/base'
-
-# create sinatra app
-class MySinatraApp < Sinatra::Base
-	get '/' do
-    'Hello world!'
-	end	
-end
-
 begin
+  require "rubygems"
   require 'win32/daemon'
+
   include Win32
 
   class DemoDaemon < Daemon
+
     def service_main
-      MySinatraApp.run! :host => 'localhost', :port => 9090, :server => 'thin'
       while running?
-        sleep 10
-        File.open("c:\\test.log", "a"){ |f| f.puts "Service is running #{Time.now}" } 
-      end
-    end 
+      sleep 10
+      File.open("c:\\test.log", "a"){ |f| f.puts "Service is running #{Time.now}" } 
+    end
+  end 
 
     def service_stop
       File.open("c:\\test.log", "a"){ |f| f.puts "***Service stopped #{Time.now}" }
-      exit! 
+      exit!
     end
   end
 
